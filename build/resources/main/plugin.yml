@@ -1,0 +1,41 @@
+name: Games Plaza
+
+main:  com.enjin.gamesplazabrasil.GamesPlaza
+
+version: 1.0-SNAPSHOT
+
+author: Industrial_Gamer
+
+description: Plugin que executa as funções prinicipais do servidor Games Plaza
+
+commands:
+        gamesplaza:
+                  description: Infos sobre o servidor
+        vip:
+                  description: Ifos sobre compra de vip
+        hub:
+                  description: Teleporta você para o hub
+        lobby:
+                  description: Teleporta você para o lobby
+        gmc:
+                  description: Muda seu gamemode para Criativo
+        gms:
+                  description: Muda seu gamemode para Sobrevivencia
+        gma:
+                  description: Muda seu gamemode para Aventura
+        gme:
+                  description: Muda seu gamemode para Espectador
+        op:
+                  description: Define um player como OP
+        deop:
+                  description: Define um OP como nao OP
+        ban:
+                  description: Bane um player (possivelmente hacker) do servidor
+        desbanir:
+                  description: Desbane um player que foi banido injustamente
+        kick:
+                  description: Kica um player (possivelmente hacker) do servidor
+        heal:
+                  description: Regenera a sua vida
+        alimentar:
+                  description: Alimenta sua fome 100%
