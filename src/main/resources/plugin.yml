@@ -35,7 +35,9 @@ commands:
                   description: Desbane um player que foi banido injustamente
         kick:
                   description: Kica um player (possivelmente hacker) do servidor
-        heal:
-                  description: Regenera a sua vida
-        alimentar:
-                  description: Alimenta sua fome 100%
+        vida:
+                  description: Args = regenerar = Regenera sua Vida
+                               Args = PlayerNick + mostrar = mostra a quantidade de vida que um player tem
+        fome:
+                  description: Args = regenerar = Alimenta sua fome 100%
+                               Args = PlayerNick + mostrar = mostra a quantidade de fome que um player tem

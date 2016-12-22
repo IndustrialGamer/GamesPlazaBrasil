@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class GamesPlaza extends JavaPlugin {
 
 
+
     @Override
     public void onEnable() {
         getLogger().info(ChatColor.GREEN + "Agora esse servidor se chama MineMania");
@@ -24,14 +25,20 @@ public class GamesPlaza extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = (Player) sender;
+
+        //Comando gamesplaza
         if (command.getName().equalsIgnoreCase("gamesplaza")) {
             p.sendMessage(ChatColor.BLUE + "GamesPlaza> " + ChatColor.GREEN + "Bem-Vindo ao GamesPlaza! Aqui você podera se divertir com nossos minigames. Se voce gostar compre vip no site http://www.gamesplazabrasil.enjin.com/shop");
 
         }
+
+        //Comando vip
         if (command.getName().equalsIgnoreCase("vip")) {
             p.sendMessage(ChatColor.BLUE + "Vip> " + ChatColor.GOLD + "Obrigado pelo interesse em ajudar o servidor!" + ChatColor.GREEN + " Voce pode comprar vip no site http://www.gamesplazabrasil.enjin.com/shop");
 
         }
+
+        //Comando lobby
         if (command.getName().equalsIgnoreCase("lobby")) {
             if (!(sender instanceof Player)) {
                 p.sendMessage(ChatColor.BLUE + "Lobby> " + ChatColor.RED + "Apenas players podem se teleportar para o Lobby!");
@@ -40,6 +47,8 @@ public class GamesPlaza extends JavaPlugin {
             p.teleport(Bukkit.getWorld("LobbyDone").getSpawnLocation());
             p.sendMessage(ChatColor.BLUE + "Lobby> " + ChatColor.GREEN + "Voce foi teleportado para o lobby principal!");
         }
+
+        //Comando hub
         if (command.getName().equalsIgnoreCase("hub")) {
             if (!(sender instanceof Player)) {
                 p.sendMessage(ChatColor.BLUE + "Hub> " + ChatColor.RED + "Apenas players podem se teleportar para o Hub");
@@ -48,7 +57,7 @@ public class GamesPlaza extends JavaPlugin {
             p.teleport(Bukkit.getWorld("LobbyDone").getSpawnLocation());
             p.sendMessage(ChatColor.BLUE + "Hub> " + ChatColor.GREEN + "Voce foi teleportado para o hub principal!");
         }
-
+        //Comando gmc
         if (command.getName().equalsIgnoreCase("gmc")) {
             if (!(sender instanceof Player)) {
                 p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
@@ -64,7 +73,7 @@ public class GamesPlaza extends JavaPlugin {
             }
 
         }
-
+        //Comando gms
         if (command.getName().equalsIgnoreCase("gms")) {
             if (!(sender instanceof Player)) {
                 p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
@@ -79,6 +88,7 @@ public class GamesPlaza extends JavaPlugin {
                 return true;
             }
         }
+        //Comando gma
         if (command.getName().equalsIgnoreCase("gma")) {
             if (!(sender instanceof Player)) {
                 p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
@@ -93,6 +103,7 @@ public class GamesPlaza extends JavaPlugin {
                 return true;
             }
         }
+        //Comando gme
         if (command.getName().equalsIgnoreCase("gme")) {
             if (!(sender instanceof Player)) {
                 p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
@@ -108,6 +119,7 @@ public class GamesPlaza extends JavaPlugin {
                 return true;
             }
         }
+        //Comando OP
         if (command.getName().equalsIgnoreCase("op")) {
 
             if (!(p.hasPermission("op.setOp.true"))) {
@@ -141,6 +153,7 @@ public class GamesPlaza extends JavaPlugin {
             }
 
         }
+        //Comando deop
         if (command.getName().equalsIgnoreCase("deop")) {
             if (!(p.hasPermission("op.deOp.true"))) {
                 p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Voce nao tem permissao suficiente para tirar o  op de outro player!");
@@ -173,7 +186,7 @@ public class GamesPlaza extends JavaPlugin {
             }
 
         }
-
+        //Comando ban
         if (command.getName().equalsIgnoreCase("ban")) {
             if (args.length == 0) {
                 p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Sem argumentos!");
@@ -187,7 +200,7 @@ public class GamesPlaza extends JavaPlugin {
                             if (target.getName().equalsIgnoreCase(args[0])) {
                                 target.kickPlayer(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + "Voce foi banido por " + ChatColor.DARK_RED + p.getName());
                                 target.setBanned(true);
-                                getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + " " +  ChatColor.GOLD + "O player " + target.getName() + "  foi banido por " + ChatColor.RED + p.getName());
+                                Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + " " +  ChatColor.GOLD + "O player " + target.getName() + "  foi banido por " + ChatColor.RED + p.getName());
                                 p.sendMessage( ChatColor.BLUE + "Ban> " + ChatColor.GREEN + "Voce baniu o player " + target.getName());
                                 target.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + "Voce foi banido por " + p.getName());
                             } else if(!(target.getName().equalsIgnoreCase(args[0]))){
@@ -204,6 +217,7 @@ public class GamesPlaza extends JavaPlugin {
 
             }
         }
+        //Comando desbanir
         if(command.getName().equalsIgnoreCase("desbanir")){
             if(sender instanceof Player ){
                 if(args.length == 0){
@@ -216,7 +230,7 @@ public class GamesPlaza extends JavaPlugin {
                         if(p.hasPermission("op.ban.unban")){
                             for(OfflinePlayer target : Bukkit.getServer().getOfflinePlayers()){
                                 if(target.getName().equalsIgnoreCase(args[0])){
-                                    getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.DARK_GREEN + "O player " +  ChatColor.RED + target.getName() + ChatColor.DARK_GREEN + " foi desbanido!");
+                                    Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.DARK_GREEN + "O player " +  ChatColor.RED + target.getName() + ChatColor.DARK_GREEN + " foi desbanido!");
                                     target.setBanned(false);
                                     p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  target.getName() + ChatColor.GREEN + "  foi desbanido com sucesso!");
                                 }
@@ -239,7 +253,7 @@ public class GamesPlaza extends JavaPlugin {
                         if(p.hasPermission("ban.op.unban")){
                             for(OfflinePlayer target : Bukkit.getServer().getOfflinePlayers()){
                                 if(target.getName().equalsIgnoreCase(args[0])){
-                                    getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.DARK_GREEN + "O player " +  ChatColor.RED + target.getName() + ChatColor.DARK_GREEN + " foi desbanido!");
+                                    Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.DARK_GREEN + "O player " +  ChatColor.RED + target.getName() + ChatColor.DARK_GREEN + " foi desbanido!");
                                     target.setBanned(false);
                                     sender.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  target.getName() + ChatColor.GREEN + "  foi desbanido com sucesso!");
                                 }
@@ -251,6 +265,7 @@ public class GamesPlaza extends JavaPlugin {
                 }
             }
         }
+        //Comando kick
         if(command.getName().equalsIgnoreCase("kick")){
             if(args.length == 0 ){
                 p.sendMessage(ChatColor.BLUE + "Kick> " + ChatColor.RED + "Sem argumentos!");
@@ -275,23 +290,55 @@ public class GamesPlaza extends JavaPlugin {
                 }
             }
         }
-        if (command.getName().equalsIgnoreCase("heal")){
-            if(!(p.hasPermission("op.heal.heal"))){
-                p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.RED + "Voce nao pode regenerar sua vida!");
+        //Comando vida
+        if (command.getName().equalsIgnoreCase("vida")){
+            if(!(p.hasPermission("op.heal.vida"))){
+                p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.RED + "Voce nao pode utilizar o comando vida!");
             }
-            if(p.hasPermission("op.heal.heal")){
-                p.setHealth(20);
-                p.sendMessage(ChatColor.BLUE  + "Vida> " + ChatColor.GREEN + "Sua vida foi regenerada de " + p.getFoodLevel() + " para 20");
-            }
-        }
-        if(command.getName().equalsIgnoreCase("alimentar")){
+            if(p.hasPermission("op.heal.vida")){
+                if(args.length == 0){
+                    p.sendMessage(ChatColor.BLUE  + "Vida> " + ChatColor.RED + "Sem argumentos!");
+                }
+                if(args.length > 4){
+                    p.sendMessage(ChatColor.BLUE  + "Vida> " + ChatColor.RED + "Muitos argumentos!");
+                }
 
-            if(!(p.hasPermission("op.feed.feed"))){
+                if(args[0].contains("regenerar")) {
+                    p.setHealth(20);
+                    p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.GREEN + "Sua vida foi regenerada de " + p.getFoodLevel() + " para 20");
+                }
+                for(Player target : Bukkit.getOnlinePlayers()){
+                    if(args[0].contains(target.getName()) && args[1].contains("mostrar")){
+                        p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.GREEN + "O player " + ChatColor.GOLD + target.getName() + " " + ChatColor.GREEN + "tem " + " " + ChatColor.DARK_PURPLE + target.getHealth() + ChatColor.GREEN  + "de vida");
+                        target.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  p.getName() + " " + ChatColor.GREEN + "sabe quanto voce tem de vida agora! ( " + ChatColor.DARK_PURPLE + target.getHealth() + " )");
+                    }
+                }
+
+                }
+
+        }
+        if(command.getName().equalsIgnoreCase("fome")){
+
+            if(!(p.hasPermission("op.feed.fome"))){
                 p.sendMessage(ChatColor.BLUE + "Fome> " +  ChatColor.RED + "Voce nao pode se alimentar!");
             }
-            if(p.hasPermission("op.feed.feed")){
-                p.setFoodLevel(20);
-                p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "Voce se alimentou! ");
+            if(p.hasPermission("op.feed.fome")){
+                if(args.length == 0){
+                    p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.RED + "Sem argumentos!");
+                }
+                if(args.length > 4){
+                    p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.RED + "Muitos argumentos!");
+                }
+                if(args[0].contains("regenerar")) {
+                    p.setFoodLevel(20);
+                    p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "Voce se alimentou! ");
+                }
+                for(Player target : Bukkit.getOnlinePlayers()){
+                    if(args[0].contains(target.getName()) && args[1].contains("mostrar")){
+                        p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "O player " + ChatColor.GOLD + target.getName() + " " + ChatColor.GREEN + "tem " + " " + ChatColor.DARK_PURPLE + target.getFoodLevel() + ChatColor.GREEN  + "de fome");
+                        target.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  p.getName() + " " + ChatColor.GREEN + "sabe quanto voce tem de fome agora! ( " + ChatColor.DARK_PURPLE + target.getFoodLevel() + " )");
+                    }
+                }
             }
         }
     /*
@@ -313,6 +360,9 @@ public class GamesPlaza extends JavaPlugin {
 
         return false;
     }
+
+
+
 
     @Override
     public void onDisable () {
