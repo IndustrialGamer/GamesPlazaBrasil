@@ -1,374 +1,76 @@
 package com.enjin.gamesplazabrasil;
 
-import org.bukkit.Bukkit;
+import com.gamesplaza.commands.*;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class GamesPlaza extends JavaPlugin {
+import java.util.ArrayList;
+
+public class GamesPlaza extends JavaPlugin  {
+
 
 
 
     @Override
     public void onEnable() {
-        getLogger().info(ChatColor.GREEN + "Agora esse servidor se chama MineMania");
+        //Inicia Servidor
+        getLogger().info(ChatColor.GREEN + "Agora esse servidor se chama Games Plaza");
+
+        //Registra eventos
         getServer().getPluginManager().registerEvents(new GamesPlazaEventos(), this);
 
-    }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player p = (Player) sender;
-
-        //Comando gamesplaza
-        if (command.getName().equalsIgnoreCase("gamesplaza")) {
-            p.sendMessage(ChatColor.BLUE + "GamesPlaza> " + ChatColor.GREEN + "Bem-Vindo ao GamesPlaza! Aqui você podera se divertir com nossos minigames. Se voce gostar compre vip no site http://www.gamesplazabrasil.enjin.com/shop");
-
-        }
-
-        //Comando vip
-        if (command.getName().equalsIgnoreCase("vip")) {
-            p.sendMessage(ChatColor.BLUE + "Vip> " + ChatColor.GOLD + "Obrigado pelo interesse em ajudar o servidor!" + ChatColor.GREEN + " Voce pode comprar vip no site http://www.gamesplazabrasil.enjin.com/shop");
-
-        }
-
-        //Comando lobby
-        if (command.getName().equalsIgnoreCase("lobby")) {
-            if (!(sender instanceof Player)) {
-                p.sendMessage(ChatColor.BLUE + "Lobby> " + ChatColor.RED + "Apenas players podem se teleportar para o Lobby!");
-                return true;
-            }
-            p.teleport(Bukkit.getWorld("LobbyDone").getSpawnLocation());
-            p.sendMessage(ChatColor.BLUE + "Lobby> " + ChatColor.GREEN + "Voce foi teleportado para o lobby principal!");
-        }
-
-        //Comando hub
-        if (command.getName().equalsIgnoreCase("hub")) {
-            if (!(sender instanceof Player)) {
-                p.sendMessage(ChatColor.BLUE + "Hub> " + ChatColor.RED + "Apenas players podem se teleportar para o Hub");
-                return true;
-            }
-            p.teleport(Bukkit.getWorld("LobbyDone").getSpawnLocation());
-            p.sendMessage(ChatColor.BLUE + "Hub> " + ChatColor.GREEN + "Voce foi teleportado para o hub principal!");
-        }
-        //Comando gmc
-        if (command.getName().equalsIgnoreCase("gmc")) {
-            if (!(sender instanceof Player)) {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
-                return true;
-            }
-            if (p.hasPermission("gamemode.use.gmc")) {
-
-                p.setGameMode(GameMode.CREATIVE);
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.GREEN + "Seu gamemode foi alterado com sucesso!");
-            } else {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Voce nao tem permissao para mudar seu gamemode");
-                return true;
-            }
-
-        }
-        //Comando gms
-        if (command.getName().equalsIgnoreCase("gms")) {
-            if (!(sender instanceof Player)) {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
-                return true;
-            }
-            if (p.hasPermission("gamemode.use.gms")) {
-
-                p.setGameMode(GameMode.SURVIVAL);
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.GREEN + "Seu gamemode foi alterado com sucesso!");
-            } else {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Voce nao tem permissao para mudar seu gamemode");
-                return true;
-            }
-        }
-        //Comando gma
-        if (command.getName().equalsIgnoreCase("gma")) {
-            if (!(sender instanceof Player)) {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
-                return true;
-            }
-            if (p.hasPermission("gamemode.use.gma")) {
-
-                p.setGameMode(GameMode.ADVENTURE);
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.GREEN + "Seu gamemode foi alterado com sucesso!");
-            } else {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Voce nao tem permissao para mudar seu gamemode");
-                return true;
-            }
-        }
-        //Comando gme
-        if (command.getName().equalsIgnoreCase("gme")) {
-            if (!(sender instanceof Player)) {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Apenas players podem mudar de Gamemode");
-                return true;
-            }
-            if (p.hasPermission("gamemode.use.gme")) {
-
-                p.setGameMode(GameMode.SPECTATOR);
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.GREEN + "Seu gamemode foi alterado com sucesso!");
-            } else {
-                p.sendMessage(ChatColor.BLUE + "Gamemode> " + ChatColor.RED + "Voce nao tem permissao para mudar seu gamemode");
-
-                return true;
-            }
-        }
-        //Comando OP
-        if (command.getName().equalsIgnoreCase("op")) {
-
-            if (!(p.hasPermission("op.setOp.true"))) {
-                p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Voce nao tem permissao suficiente para dar op para outro player!");
-
-            }
-            if (sender instanceof Player) {
-                if (args.length == 0) {
-                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Sem argumentos!");
-                } else if (args.length > 1) {
-                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Muitos argumentos");
-                } else {
-                    if (p.hasPermission("op.setOp.true")) {
-                        if (args.length == 1) {
-
-                            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
-                                if (target.getName().equalsIgnoreCase(args[0])) {
-                                    target.setOp(true);
-                                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.GREEN + "O player " + ChatColor.GOLD + target.getName() + ChatColor.GREEN + " agora e OP!");
-                                    target.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.GREEN + "Voce e agora um OP do servidor! ");
-                                } else if(target == null){
-                                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Player não encontrado");
-                                    target.setOp(false);
-                                }
-                            }
-
-                        }
-
-                    }
-                }
-            }
-
-        }
-        //Comando deop
-        if (command.getName().equalsIgnoreCase("deop")) {
-            if (!(p.hasPermission("op.deOp.true"))) {
-                p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Voce nao tem permissao suficiente para tirar o  op de outro player!");
-
-            }
-            if (sender instanceof Player) {
-                if (args.length == 0) {
-                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Sem argumentos!");
-                } else if (args.length > 1) {
-                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Muitos argumentos");
-                } else {
-                    if (p.hasPermission("op.deOp.true")) {
-                        if (args.length == 1) {
-
-                            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
-                                if (target.getName().equalsIgnoreCase(args[0])) {
-                                    target.setOp(false);
-                                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.GREEN + "O player " + ChatColor.GOLD + target.getName() + ChatColor.GREEN + " agora nao e mais OP!");
-                                    target.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.GREEN + "Voce nao e mais um OP do servidor! ");
-                                } else if(target == null){
-                                    p.sendMessage(ChatColor.BLUE + "Op> " + ChatColor.RED + "Player não encontrado");
-                                    target.setOp(true);
-                                }
-                            }
-
-                        }
-
-                    }
-                }
-            }
-
-        }
-        //Comando ban
-        if (command.getName().equalsIgnoreCase("ban")) {
-            if (args.length == 0) {
-                p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Sem argumentos!");
-            } else if (args.length > 1) {
-                p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Muitos argumentos!");
-            } else {
-
-                if (args.length == 1) {
-                    if (p.hasPermission("op.ban.ban")) {
-                        for (Player target : Bukkit.getServer().getOnlinePlayers()) {
-                            if (target.getName().equalsIgnoreCase(args[0])) {
-                                target.kickPlayer(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + "Voce foi banido por " + ChatColor.DARK_RED + p.getName());
-                                target.setBanned(true);
-                                Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + " " +  ChatColor.GOLD + "O player " + target.getName() + "  foi banido por " + ChatColor.RED + p.getName());
-                                p.sendMessage( ChatColor.BLUE + "Ban> " + ChatColor.GREEN + "Voce baniu o player " + target.getName());
-                                target.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.BOLD + "Voce foi banido por " + p.getName());
-                            } else if(!(target.getName().equalsIgnoreCase(args[0]))){
-                                p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Player nao encontrado");
-                                return  true;
-                            }
-
-                        }
-                    } else{
-
-                        p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Voce nao tem permissao para banir um player");
-                    }
-                }
-
-            }
-        }
-        //Comando desbanir
-        if(command.getName().equalsIgnoreCase("desbanir")){
-            if(sender instanceof Player ){
-                if(args.length == 0){
-                    p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Sem argumentos!");
-                } else if(args.length > 1){
-                    p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Muitos argumentos!");
-                }
-                else{
-                    if(args.length == 1){
-                        if(p.hasPermission("op.ban.unban")){
-                            for(OfflinePlayer target : Bukkit.getServer().getOfflinePlayers()){
-                                if(target.getName().equalsIgnoreCase(args[0])){
-                                    Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.DARK_GREEN + "O player " +  ChatColor.RED + target.getName() + ChatColor.DARK_GREEN + " foi desbanido!");
-                                    target.setBanned(false);
-                                    p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  target.getName() + ChatColor.GREEN + "  foi desbanido com sucesso!");
-                                }
-                            }
-                        }else{
-                            p.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Voce nao tem permissao para desbanir um jogador!");
-                        }
-                    }
-                }
-            }
-            if (sender instanceof ConsoleCommandSender){
-
-                if(args.length == 0){
-                    sender.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Sem argumentos!");
-                } else if(args.length > 1){
-                    sender.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Muitos argumentos!");
-                }
-                else{
-                    if(args.length == 1){
-                        if(p.hasPermission("ban.op.unban")){
-                            for(OfflinePlayer target : Bukkit.getServer().getOfflinePlayers()){
-                                if(target.getName().equalsIgnoreCase(args[0])){
-                                    Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Ban> " + ChatColor.DARK_GREEN + "O player " +  ChatColor.RED + target.getName() + ChatColor.DARK_GREEN + " foi desbanido!");
-                                    target.setBanned(false);
-                                    sender.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  target.getName() + ChatColor.GREEN + "  foi desbanido com sucesso!");
-                                }
-                            }
-                        }else{
-                            sender.sendMessage(ChatColor.BLUE + "Ban> " + ChatColor.RED + "Voce nao tem permissao para desbanir um jogador!");
-                        }
-                    }
-                }
-            }
-        }
-        //Comando kick
-        if(command.getName().equalsIgnoreCase("kick")){
-            if(args.length == 0 ){
-                p.sendMessage(ChatColor.BLUE + "Kick> " + ChatColor.RED + "Sem argumentos!");
-            } else if(args.length > 1){
-                p.sendMessage(ChatColor.BLUE + "Kick> " + ChatColor.RED + "Muitos argumentos!");
-            }else {
-
-                if (args.length == 1) {
-                    if (p.hasPermission("op.kick.kick")) {
-                        for (Player target : Bukkit.getServer().getOnlinePlayers()) {
-                            if (target.getName().equalsIgnoreCase(args[0])) {
-                                target.kickPlayer(ChatColor.BLUE + "Kick> " + ChatColor.GOLD + ChatColor.BOLD + "Voce foi kicado por " + ChatColor.RED + p.getName());
-                                p.sendMessage(ChatColor.BLUE + "Kick> " + ChatColor.GREEN + "O player " + ChatColor.RED + target.getName() + ChatColor.GREEN + "  foi kicado com sucesso!");
-                            }else if (!(target.getName().equalsIgnoreCase(args[0]))) {
-                                p.sendMessage(ChatColor.BLUE + "Kick> " + ChatColor.RED + "Player nao encontrado!");
-                            }
-                        }
-
-                    }else{
-                        p.sendMessage(ChatColor.BLUE + "Kick> " + ChatColor.RED + "Voce nao tem permissao!");
-                    }
-                }
-            }
-        }
-        //Comando vida
-        if (command.getName().equalsIgnoreCase("vida")){
-            if(!(p.hasPermission("op.heal.vida"))){
-                p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.RED + "Voce nao pode utilizar o comando vida!");
-            }
-            if(p.hasPermission("op.heal.vida")){
-                if(args.length == 0){
-                    p.sendMessage(ChatColor.BLUE  + "Vida> " + ChatColor.RED + "Sem argumentos!");
-                }
-                if(args.length > 4){
-                    p.sendMessage(ChatColor.BLUE  + "Vida> " + ChatColor.RED + "Muitos argumentos!");
-                }
-
-                if(args[0].contains("regenerar")) {
-                    p.setHealth(20);
-                    p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.GREEN + "Sua vida foi regenerada de " + p.getFoodLevel() + " para 20");
-                }
-                for(Player target : Bukkit.getOnlinePlayers()){
-                    if(args[0].contains(target.getName()) && args[1].contains("mostrar")){
-                        p.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.GREEN + "O player " + ChatColor.GOLD + target.getName() + " " + ChatColor.GREEN + "tem " + " " + ChatColor.DARK_PURPLE + target.getHealth() + ChatColor.GREEN  + "de vida");
-                        target.sendMessage(ChatColor.BLUE + "Vida> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  p.getName() + " " + ChatColor.GREEN + "sabe quanto voce tem de vida agora! ( " + ChatColor.DARK_PURPLE + target.getHealth() + " )");
-                    }
-                }
-
-                }
-
-        }
-        if(command.getName().equalsIgnoreCase("fome")){
-
-            if(!(p.hasPermission("op.feed.fome"))){
-                p.sendMessage(ChatColor.BLUE + "Fome> " +  ChatColor.RED + "Voce nao pode se alimentar!");
-            }
-            if(p.hasPermission("op.feed.fome")){
-                if(args.length == 0){
-                    p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.RED + "Sem argumentos!");
-                }
-                if(args.length > 4){
-                    p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.RED + "Muitos argumentos!");
-                }
-                if(args[0].contains("regenerar")) {
-                    p.setFoodLevel(20);
-                    p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "Voce se alimentou! ");
-                }
-                for(Player target : Bukkit.getOnlinePlayers()){
-                    if(args[0].contains(target.getName()) && args[1].contains("mostrar")){
-                        p.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "O player " + ChatColor.GOLD + target.getName() + " " + ChatColor.GREEN + "tem " + " " + ChatColor.DARK_PURPLE + target.getFoodLevel() + ChatColor.GREEN  + "de fome");
-                        target.sendMessage(ChatColor.BLUE + "Fome> " + ChatColor.GREEN + "O player " + ChatColor.GOLD +  p.getName() + " " + ChatColor.GREEN + "sabe quanto voce tem de fome agora! ( " + ChatColor.DARK_PURPLE + target.getFoodLevel() + " )");
-                    }
-                }
-            }
-        }
-    /*
-    if (command.getName().equalsIgnoreCase("voar")){
-        if(p.hasPermission("vip.perm.fly")){
-            if(p.isFlying()){
-                p.setFlying(false);
-                p.sendMessage(ChatColor.BLUE + "Voar> " + ChatColor.GREEN + "Modo voar desabilitado para " + p.getName());
-            }
-            if(!(p.isFlying())){
-                p.setFlying(true);
-                p.sendMessage(ChatColor.BLUE + "Voar> " + ChatColor.GREEN + "Modo voar habilitado para " + p.getName());
-            }
-        }
-
-    }
-*/
+        //Registra Config
+        registerConfig();
 
 
-        return false;
+        //CommandExecutors
+        this.getCommand("gamesplaza").setExecutor(new GamesplazaCommand(this));
+        this.getCommand("vip").setExecutor(new VipCommand(this));
+        this.getCommand("hub").setExecutor(new LobbyCommand(this));
+        this.getCommand("lobby").setExecutor(new LobbyCommand(this));
+        this.getCommand("gmc").setExecutor(new GmcCommand(this));
+        this.getCommand("gms").setExecutor(new GmsCommand(this));
+        this.getCommand("gma").setExecutor(new GmaCommand(this));
+        this.getCommand("gme").setExecutor(new GmeCommand(this));
+        this.getCommand("op").setExecutor(new OPCommand(this));
+        this.getCommand("deop").setExecutor(new DEOPCommand(this));
+        this.getCommand("ban").setExecutor(new BanCommand(this));
+        this.getCommand("desbanir").setExecutor(new DesbanirCommand(this));
+        this.getCommand("kick").setExecutor(new KickCommand(this));
+        this.getCommand("vida").setExecutor(new VidaCommand(this));
+        this.getCommand("fome").setExecutor(new FomeCommand(this));
+        this.getCommand("tempo").setExecutor(new TimeCommand(this));
+        this.getCommand("ADM").setExecutor(new ADMCommand(this));
+
+
     }
 
 
 
+       private void registerConfig () {
+           getConfig().addDefault("lobby: ", "LobbyDone");
+            getConfig().options().copyDefaults(true);
+            saveConfig();
+        }
 
-    @Override
-    public void onDisable () {
-        getLogger().info("Agora esse servidor não se chama mais MineMania");
-        HandlerList.unregisterAll(this);
 
-    }
+        @Override
+        public void onDisable () {
+            getLogger().info("Agora esse servidor não se chama mais GamesPlaza");
+            HandlerList.unregisterAll(this);
+        }
+
+
+
+
+
 
 }

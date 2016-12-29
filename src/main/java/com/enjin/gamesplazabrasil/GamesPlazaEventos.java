@@ -12,20 +12,29 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 public class GamesPlazaEventos implements Listener {
-
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
         p.sendTitle(ChatColor.GOLD + "Bem-Vindo",  ChatColor.BOLD +   "ao Games Plaza");
-
+        e.setJoinMessage(null);
 
     }
+    @EventHandler
+    public  void onPlayerQuit(PlayerQuitEvent e){
+
+        e.setQuitMessage(null);
+    }
+    /*
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent e){
+        e.setFormat(ChatColor.GRAY + e.getPlayer().getName() + ChatColor.WHITE + ": " + ChatColor.YELLOW + e.getMessage());
+    }
+*/
 
     @EventHandler
     public void onPlayerInteratcButton(PlayerInteractEvent e){
@@ -60,8 +69,9 @@ public class GamesPlazaEventos implements Listener {
 
         }
         if(!(e.getPlayer().isOp())){
-            e.setCancelled(true);
             p.sendMessage(ChatColor.BLUE + "Quebrar> " + ChatColor.RED + "Voce nao pode quebrar blocos aqui" );
+            e.setCancelled(true);
+
 
         }
         if(p.hasPermission("block.server.break")){
@@ -78,11 +88,12 @@ public class GamesPlazaEventos implements Listener {
             e.setCancelled(false);
         }
         if(!(p.isOp())){
+            p.sendMessage(  ChatColor.BLUE + "Construir> " + ChatColor.RED + "Voce nao pode construir aqui!");
             ItemStack i = (ItemStack) e.getItemInHand();
             e.setCancelled(true);
             p.getInventory().addItem(new ItemStack(i));
 
-            p.sendMessage(  ChatColor.BLUE + "Construir> " + ChatColor.RED + "Voce nao pode construir aqui!");
+
 
 
         }
@@ -90,11 +101,12 @@ public class GamesPlazaEventos implements Listener {
             e.setCancelled(false);
         }
         if(!(p.hasPermission("block.server.place"))){
+            p.sendMessage(  ChatColor.BLUE + "Construir> " + ChatColor.RED + "Voce nao tem permissao para construir aqui!");
             ItemStack i = (ItemStack) e.getItemInHand();
             e.setCancelled(true);
             p.getInventory().addItem(new ItemStack(i));
 
-            p.sendMessage(  ChatColor.BLUE + "Construir> " + ChatColor.RED + "Voce nao tem permissao para construir aqui!");
+
         }
     }
 

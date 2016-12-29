@@ -26,9 +26,9 @@ commands:
         gme:
                   description: Muda seu gamemode para Espectador
         op:
-                  description: Define um player como OP
+                  description: Define um player com OP
         deop:
-                  description: Define um OP como nao OP
+                  description: Tira o OP de um player
         ban:
                   description: Bane um player (possivelmente hacker) do servidor
         desbanir:
@@ -41,3 +41,7 @@ commands:
         fome:
                   description: Args = regenerar = Alimenta sua fome 100%
                                Args = PlayerNick + mostrar = mostra a quantidade de fome que um player tem
+        tempo:
+                  description: Altera o tempo
+        ADM:
+                  description: Comando de controle para Admins

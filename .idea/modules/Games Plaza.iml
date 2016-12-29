@@ -12,7 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../src/Commands" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../build" />
-      <excludeFolder url="file://$MODULE_DIR$/../../src/Commands" />
+      <excludeFolder url="file://$MODULE_DIR$/../../src/CommandsInProject" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
